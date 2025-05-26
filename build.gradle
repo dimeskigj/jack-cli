@@ -1,5 +1,6 @@
 plugins {
     id 'org.jetbrains.kotlin.jvm' version '2.1.20'
+    id 'application'
 }
 
 group = 'org.factotum'
@@ -11,11 +12,29 @@ repositories {
 
 dependencies {
     testImplementation 'org.jetbrains.kotlin:kotlin-test'
+
+    implementation "com.github.ajalt.clikt:clikt:5.0.3"
+    implementation "com.github.ajalt.clikt:clikt-markdown:5.0.3"
 }
 
 test {
     useJUnitPlatform()
 }
+
 kotlin {
     jvmToolchain(21)
+}
+
+configurations {
+    compileClasspath {
+        resolutionStrategy.activateDependencyLocking()
+    }
+}
+
+dependencyLocking {
+    lockAllConfigurations()
+}
+
+application {
+    mainClass = 'org.factotum.MainKt'
 }
