@@ -16,13 +16,18 @@ const val UUID_COUNT_MUST_BE_POSITIVE_INTEGER = "Must be a positive integer"
 
 class UuidCommand(private val uuidService: UuidService) : CliktCommand(name = "uuid") {
     val count by option(
-        UUID_COUNT_NAME, UUID_COUNT_NAME_SHORT, help = UUID_COUNT_HELP
-    ).int().default(1).validate { require(it > 0) { UUID_COUNT_MUST_BE_POSITIVE_INTEGER } }
+        UUID_COUNT_NAME, UUID_COUNT_NAME_SHORT,
+        help = UUID_COUNT_HELP
+    ).int().default(1).validate {
+        require(it > 0) {
+            UUID_COUNT_MUST_BE_POSITIVE_INTEGER
+        }
+    }
 
     override fun help(context: Context) = UUID_HELP
 
     override fun run() {
-        (1..count).forEach { i ->
+        repeat(count) {
             echo(uuidService.randomUuid())
         }
     }
