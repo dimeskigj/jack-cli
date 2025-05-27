@@ -1,4 +1,4 @@
-name: validation.yml
+name: Validation
 
 on:
   push:
