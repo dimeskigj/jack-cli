@@ -5,6 +5,7 @@ import org.factotum.features.lorem.LoremCommand
 import org.factotum.features.lorem.services.impl.LoremIpsumServiceImpl
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
+import kotlin.test.assertEquals
 
 class LoremCommandTest {
     private val loremIpsumService = LoremIpsumServiceImpl()
@@ -29,6 +30,24 @@ class LoremCommandTest {
         val result = assertDoesNotThrow { command.test("-c 1") }
 
         assert(result.stderr.isEmpty())
+    }
+
+    @Test
+    fun `when '--count' argument passed with value 25 expect 25 words`() {
+        val count = 25
+
+        val result = assertDoesNotThrow { command.test("--count $count") }
+
+        assertEquals(count, result.stdout.split(" ").count())
+    }
+
+    @Test
+    fun `when '--count' argument passed with value 1 expect 1 word`() {
+        val count = 1
+
+        val result = assertDoesNotThrow { command.test("--count $count") }
+
+        assertEquals(count, result.stdout.split(" ").count())
     }
 
     @Test

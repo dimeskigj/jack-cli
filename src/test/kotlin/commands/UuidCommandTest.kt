@@ -5,6 +5,7 @@ import org.factotum.features.uuid.UuidCommand
 import org.factotum.features.uuid.services.impl.UuidServiceImpl
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
+import kotlin.test.assertEquals
 
 class UuidCommandTest {
     private val uuidService = UuidServiceImpl()
@@ -15,6 +16,14 @@ class UuidCommandTest {
         val result = assertDoesNotThrow { command.test() }
 
         assert(result.stderr.isEmpty())
+    }
+
+    @Test
+    fun `when no arguments passed expect one uuid`() {
+        val result = assertDoesNotThrow { command.test() }
+
+        val uuidCount = result.stdout.split("\n").filter { it.isNotEmpty() }.count()
+        assertEquals(1, uuidCount)
     }
 
     @Test
@@ -29,6 +38,16 @@ class UuidCommandTest {
         val result = assertDoesNotThrow { command.test("-c 1") }
 
         assert(result.stderr.isEmpty())
+    }
+
+    @Test
+    fun `when '--count' argument passed with value 25 expect 25 uuids`() {
+        val count = 25
+
+        val result = assertDoesNotThrow { command.test("--count $count") }
+
+        val uuidCount = result.stdout.split("\n").filter { it.isNotEmpty() }.count()
+        assertEquals(count, uuidCount)
     }
 
     @Test
