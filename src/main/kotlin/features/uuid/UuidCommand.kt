@@ -1,4 +1,4 @@
-package org.factotum.features.uuid
+package org.jack.features.uuid
 
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.core.Context
@@ -6,7 +6,7 @@ import com.github.ajalt.clikt.parameters.options.default
 import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.options.validate
 import com.github.ajalt.clikt.parameters.types.int
-import org.factotum.features.uuid.services.UuidService
+import org.jack.features.uuid.services.UuidService
 
 const val UUID_COMMAND_NAME = "uuid"
 const val UUID_HELP = "Generate a random unique identifier"

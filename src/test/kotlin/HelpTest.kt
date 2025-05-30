@@ -1,4 +1,4 @@
-import org.factotum.main
+import org.jack.main
 import org.junit.jupiter.api.assertDoesNotThrow
 import kotlin.test.Test
 

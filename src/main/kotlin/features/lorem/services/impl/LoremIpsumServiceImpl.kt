@@ -1,6 +1,6 @@
-package org.factotum.features.lorem.services.impl
+package org.jack.features.lorem.services.impl
 
-import org.factotum.features.lorem.services.LoremIpsumService
+import org.jack.features.lorem.services.LoremIpsumService
 import kotlin.random.Random
 
 val loremIpsumWords = listOf(

@@ -3,7 +3,7 @@ plugins {
     id 'application'
 }
 
-group = 'org.factotum'
+group = 'org.jack'
 version = project.version
 
 repositories {
@@ -36,5 +36,5 @@ dependencyLocking {
 }
 
 application {
-    mainClass = 'org.factotum.MainKt'
+    mainClass = 'org.jack.MainKt'
 }

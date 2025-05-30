@@ -1,4 +1,4 @@
-package org.factotum.features.uuid.services
+package org.jack.features.uuid.services
 
 import java.util.*
 

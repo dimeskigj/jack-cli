@@ -1,8 +1,8 @@
 package commands
 
 import com.github.ajalt.clikt.testing.test
-import org.factotum.features.lorem.LoremCommand
-import org.factotum.features.lorem.services.impl.LoremIpsumServiceImpl
+import org.jack.features.lorem.LoremCommand
+import org.jack.features.lorem.services.impl.LoremIpsumServiceImpl
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
 import kotlin.test.assertEquals

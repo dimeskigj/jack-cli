@@ -1,8 +1,8 @@
 package commands
 
 import com.github.ajalt.clikt.testing.test
-import org.factotum.features.uuid.UuidCommand
-import org.factotum.features.uuid.services.impl.UuidServiceImpl
+import org.jack.features.uuid.UuidCommand
+import org.jack.features.uuid.services.impl.UuidServiceImpl
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
 import kotlin.test.assertEquals

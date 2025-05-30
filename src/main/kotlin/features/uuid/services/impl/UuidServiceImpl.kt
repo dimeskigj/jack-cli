@@ -1,6 +1,6 @@
-package org.factotum.features.uuid.services.impl
+package org.jack.features.uuid.services.impl
 
-import org.factotum.features.uuid.services.UuidService
+import org.jack.features.uuid.services.UuidService
 import java.util.*
 
 class UuidServiceImpl : UuidService {

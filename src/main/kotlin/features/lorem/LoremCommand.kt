@@ -1,4 +1,4 @@
-package org.factotum.features.lorem
+package org.jack.features.lorem
 
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.core.Context
@@ -6,7 +6,7 @@ import com.github.ajalt.clikt.parameters.options.default
 import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.options.validate
 import com.github.ajalt.clikt.parameters.types.int
-import org.factotum.features.lorem.services.LoremIpsumService
+import org.jack.features.lorem.services.LoremIpsumService
 
 const val LOREM_COMMAND_NAME = "lorem"
 const val LOREM_COMMAND_HELP = "Generate dummy text"
