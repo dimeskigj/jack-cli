@@ -33,7 +33,7 @@ Jack is a versatile command-line tool that provides handy developer utilities al
    For example, on macOS/Linux, you can add this line to your `.bashrc`, `.zshrc`, or equivalent:
 
    ```bash
-   export PATH="\$PATH:/path/to/jack-cli/build/install/jack/bin"
+   export PATH="$PATH:/path/to/jack-cli/build/install/jack/bin"
    ```
 
    On Windows, add the directory to your system PATH via Environment Variables settings.
