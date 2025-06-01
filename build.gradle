@@ -13,8 +13,10 @@ repositories {
 dependencies {
     testImplementation 'org.jetbrains.kotlin:kotlin-test'
 
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0"
     implementation "com.github.ajalt.clikt:clikt:5.0.3"
     implementation "com.github.ajalt.clikt:clikt-markdown:5.0.3"
+    implementation "io.github.g0dkar:qrcode-kotlin:4.4.1"
 }
 
 test {
