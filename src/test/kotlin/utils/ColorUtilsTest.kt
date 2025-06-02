@@ -7,13 +7,13 @@ import kotlin.test.assertFailsWith
 
 class ColorUtilsTest {
     @Test
-    fun `when valid hex string conversion should handle RGB and RGBA formats`() {
+    fun `when valid hex string provided conversion should handle RGB and RGBA formats`() {
         assertEquals(0xFF00FF00.toInt(), "00FF00".toRgbaColorCode())
         assertEquals(0x8000FF00.toInt(), "8000FF00".toRgbaColorCode())
     }
 
     @Test
-    fun `when invalid hex string conversion should throw exception`() {
+    fun `when invalid hex string provided conversion should throw exception`() {
         assertFailsWith<Exception> {
             "invalid".toRgbaColorCode()
         }
