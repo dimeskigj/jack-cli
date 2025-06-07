@@ -5,17 +5,26 @@ QR codes and dummy text, jack aims to be your swiss knife 🗡️ for everyday d
 
 ## Features ✨
 
-- Generate random UUIDs 🆔
-- Create lorem ipsum dummy text 📄
-- Generate QR codes as PNG images 📱
-- (More features coming soon: hashing 🔐, base64 encoding 🧩, time formatting ⏰, calculator ➕➖, color conversions 🎨, JSON
-  formatting 📦, file info 🗂️, random passwords 🔑, IP lookup 📍, and more!)
+### Core Utilities
+- **UUID Generation**: Create version 4 UUIDs in bulk
+- **Lorem Ipsum**: Generate customizable placeholder text
+- **QR Codes**: Convert text/URLs to QR code PNGs
+
+### Coming Soon 🚧
+- Data encoding (Base64, URL)
+- Hash generation (MD5, SHA)
+- Time utilities (formatting, conversions)
+- File operations (checksums, info)
+- Security tools (password generator)
+- Color conversions (HEX ↔ RGB)
 
 ## Installation 🚀
 
-You have two options for installing jack:
+### Prerequisites
+- Java 21+ (JRE required for runtime)
+- Gradle (for building from source)
 
-1. Build from source:
+### Option 1 - Build from source:
 
    1. Clone the repository:
 
@@ -44,13 +53,13 @@ You have two options for installing jack:
 
       On Windows, add the directory to your system PATH via Environment Variables settings.
 
-2. Download a release build from GitHub:
+### Option 2 - Download a release build from GitHub:
 
    1. Find the relase you want from the [release page](https://github.com/dimeskigj/jack-cli/releases/tag/v0.0.2-beta) and download the .zip/.tar archive.
 
    2. Extract the archive where you want to install the tool.
 
-   3. Follow the third step as above.
+   3. Follow the third step as option 1.
 
 
 ## Contributing 🤝
