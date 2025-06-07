@@ -89,6 +89,16 @@ class UuidCommandTest {
     }
 
     @Test
+    fun `when '--count' argument passed with value 25 expect 25 ulids`() {
+        val count = 25
+
+        val result = assertDoesNotThrow { command.test("--type ulid --count $count") }
+
+        val ulidCount = result.stdout.split("\n").filter { it.isNotEmpty() }.count()
+        assertEquals(count, ulidCount)
+    }
+
+    @Test
     fun `when '--type' argument passed with value 'uuid' expect a valid UUID`() {
         val result = command.test("--type uuid").stdout
         val trimmedResult = result.trim()
