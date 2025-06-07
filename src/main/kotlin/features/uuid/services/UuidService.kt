@@ -4,4 +4,5 @@ import java.util.*
 
 interface UuidService {
     fun randomUuid(): UUID
+    fun randomUlid(): String
 }
