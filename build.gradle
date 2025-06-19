@@ -15,6 +15,7 @@ dependencies {
     testImplementation 'org.mockito:mockito-core:5.18.0'
 
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0"
+    implementation "org.jetbrains.kotlinx:kotlinx-datetime:0.6.2"
     implementation "com.github.ajalt.clikt:clikt:5.0.3"
     implementation "com.github.ajalt.clikt:clikt-markdown:5.0.3"
     implementation "io.github.g0dkar:qrcode-kotlin:4.4.1"
