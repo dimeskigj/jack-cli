@@ -11,15 +11,17 @@ class QrCodeWriterServiceImpl : QrCodeWriterService {
         content: String,
         outputFile: File,
         backgroundColorRgba: Int,
-        foregroundColorRgba: Int
+        foregroundColorRgba: Int,
     ) {
-        val qrCode = QRCode.ofSquares()
-            .withShape(QRCodeShapesEnum.SQUARE)
-            .withSize(25)
-            .withInnerSpacing(0)
-            .withBackgroundColor(backgroundColorRgba)
-            .withColor(foregroundColorRgba)
-            .build(content)
+        val qrCode =
+            QRCode
+                .ofSquares()
+                .withShape(QRCodeShapesEnum.SQUARE)
+                .withSize(25)
+                .withInnerSpacing(0)
+                .withBackgroundColor(backgroundColorRgba)
+                .withColor(foregroundColorRgba)
+                .build(content)
 
         val qrRender = qrCode.render()
 

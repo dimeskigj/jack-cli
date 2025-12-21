@@ -43,7 +43,7 @@ class QrCommandTest {
             content = "test",
             outputFile = outputFile,
             backgroundColorRgba = 0xFFFFFFFF.toInt(),
-            foregroundColorRgba = 0xFF000000.toInt()
+            foregroundColorRgba = 0xFF000000.toInt(),
         )
     }
 
@@ -56,7 +56,7 @@ class QrCommandTest {
             content = "test",
             outputFile = outputFile,
             backgroundColorRgba = 0xFF00FF00.toInt(),
-            foregroundColorRgba = 0xFF0000FF.toInt()
+            foregroundColorRgba = 0xFF0000FF.toInt(),
         )
     }
 

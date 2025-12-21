@@ -21,9 +21,13 @@ const val UUID_TYPE_NAME = "--type"
 const val UUID_TYPE_NAME_SHORT = "-t"
 const val UUID_TYPE_HELP = "The type of the unique identifier"
 
-class UuidCommand(private val uuidService: UuidService) : CliktCommand(name = UUID_COMMAND_NAME) {
+class UuidCommand(
+    private val uuidService: UuidService,
+) : CliktCommand(name = UUID_COMMAND_NAME) {
     val count by option(
-        UUID_COUNT_NAME, UUID_COUNT_NAME_SHORT, help = UUID_COUNT_HELP
+        UUID_COUNT_NAME,
+        UUID_COUNT_NAME_SHORT,
+        help = UUID_COUNT_HELP,
     ).int().default(1).validate {
         require(it > 0) {
             UUID_COUNT_MUST_BE_POSITIVE_INTEGER
@@ -31,16 +35,19 @@ class UuidCommand(private val uuidService: UuidService) : CliktCommand(name = UU
     }
 
     val type: UuidType by option(
-        UUID_TYPE_NAME, UUID_TYPE_NAME_SHORT, help = UUID_TYPE_HELP
+        UUID_TYPE_NAME,
+        UUID_TYPE_NAME_SHORT,
+        help = UUID_TYPE_HELP,
     ).enum<UuidType>().default(UuidType.UUID)
 
     override fun help(context: Context) = UUID_HELP
 
     override fun run() {
-        val getRandomId = when (type) {
-            UuidType.UUID -> uuidService::randomUuid
-            UuidType.ULID -> uuidService::randomUlid
-        }
+        val getRandomId =
+            when (type) {
+                UuidType.UUID -> uuidService::randomUuid
+                UuidType.ULID -> uuidService::randomUlid
+            }
 
         repeat(times = count) {
             echo(getRandomId())

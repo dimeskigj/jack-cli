@@ -15,10 +15,13 @@ const val LOREM_COUNT_NAME_SHORT = "-c"
 const val LOREM_COUNT_HELP = "Word count of the generated text"
 const val LOREM_COUNT_MUST_BE_POSITIVE_INTEGER = "Must be a positive integer"
 
-class LoremCommand(private val loremIpsumService: LoremIpsumService) : CliktCommand(name = LOREM_COMMAND_NAME) {
+class LoremCommand(
+    private val loremIpsumService: LoremIpsumService,
+) : CliktCommand(name = LOREM_COMMAND_NAME) {
     val count by option(
-        LOREM_COUNT_NAME, LOREM_COUNT_NAME_SHORT,
-        help = LOREM_COUNT_HELP
+        LOREM_COUNT_NAME,
+        LOREM_COUNT_NAME_SHORT,
+        help = LOREM_COUNT_HELP,
     ).int().default(10).validate {
         require(it > 0) {
             LOREM_COUNT_MUST_BE_POSITIVE_INTEGER

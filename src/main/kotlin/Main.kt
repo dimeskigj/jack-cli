@@ -22,10 +22,11 @@ val loremCommand = LoremCommand(loremIpsumService)
 val qrCommand = QrCommand(qrCodeWriterService)
 val timestampCommand = TimestampCommand(timestampService)
 
-fun main(args: Array<String>) = JackCommand()
-    .subcommands(
-        uuidCommand,
-        loremCommand,
-        qrCommand,
-        timestampCommand
-    ).main(args)
+fun main(args: Array<String>) =
+    JackCommand()
+        .subcommands(
+            uuidCommand,
+            loremCommand,
+            qrCommand,
+            timestampCommand,
+        ).main(args)

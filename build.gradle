@@ -1,6 +1,7 @@
 plugins {
     id 'org.jetbrains.kotlin.jvm' version '2.1.20'
     id 'application'
+    id "com.diffplug.spotless" version "7.0.0.BETA4"
 }
 
 group = 'org.jack'
@@ -42,4 +43,12 @@ dependencyLocking {
 
 application {
     mainClass = 'org.jack.MainKt'
+}
+
+apply from: 'spotless.gradle'
+
+processResources {
+    filesMatching('version.properties') {
+        expand(project.properties)
+    }
 }

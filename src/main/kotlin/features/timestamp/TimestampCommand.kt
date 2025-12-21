@@ -15,21 +15,24 @@ const val HELP_TEXT = "Get a timestamp"
 
 enum class EpochUnits { SECONDS, MILLISECONDS }
 
-class TimestampCommand(private val timestampService: TimestampService) : CliktCommand(name = TIMESTAMP_COMMAND_NAME) {
+class TimestampCommand(
+    private val timestampService: TimestampService,
+) : CliktCommand(name = TIMESTAMP_COMMAND_NAME) {
     val type: EpochUnits by option(
-        UNIT_OPTION_NAME, UNIT_OPTION_SHORT,
-        help = UNIT_OPTION_HELP
-    )
-        .enum<EpochUnits>()
+        UNIT_OPTION_NAME,
+        UNIT_OPTION_SHORT,
+        help = UNIT_OPTION_HELP,
+    ).enum<EpochUnits>()
         .default(EpochUnits.MILLISECONDS)
 
     override fun help(context: Context) = HELP_TEXT
 
     override fun run() {
-        val epoch = when (type) {
-            EpochUnits.SECONDS -> timestampService.nowEpochTimeInSeconds()
-            EpochUnits.MILLISECONDS -> timestampService.nowEpochTimeInMilliseconds()
-        }
+        val epoch =
+            when (type) {
+                EpochUnits.SECONDS -> timestampService.nowEpochTimeInSeconds()
+                EpochUnits.MILLISECONDS -> timestampService.nowEpochTimeInMilliseconds()
+            }
 
         echo(epoch)
     }

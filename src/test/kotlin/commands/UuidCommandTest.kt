@@ -25,7 +25,11 @@ class UuidCommandTest {
     fun `when no arguments passed expect one uuid`() {
         val result = assertDoesNotThrow { command.test() }
 
-        val uuidCount = result.stdout.split("\n").filter { it.isNotEmpty() }.count()
+        val uuidCount =
+            result.stdout
+                .split("\n")
+                .filter { it.isNotEmpty() }
+                .count()
         assertEquals(1, uuidCount)
     }
 
@@ -49,7 +53,11 @@ class UuidCommandTest {
 
         val result = assertDoesNotThrow { command.test("--count $count") }
 
-        val uuidCount = result.stdout.split("\n").filter { it.isNotEmpty() }.count()
+        val uuidCount =
+            result.stdout
+                .split("\n")
+                .filter { it.isNotEmpty() }
+                .count()
         assertEquals(count, uuidCount)
     }
 
@@ -94,7 +102,11 @@ class UuidCommandTest {
 
         val result = assertDoesNotThrow { command.test("--type ulid --count $count") }
 
-        val ulidCount = result.stdout.split("\n").filter { it.isNotEmpty() }.count()
+        val ulidCount =
+            result.stdout
+                .split("\n")
+                .filter { it.isNotEmpty() }
+                .count()
         assertEquals(count, ulidCount)
     }
 
@@ -103,7 +115,7 @@ class UuidCommandTest {
         val result = command.test("--type uuid").stdout
         val trimmedResult = result.trim()
 
-        assertDoesNotThrow {  UUID.fromString(trimmedResult)}
+        assertDoesNotThrow { UUID.fromString(trimmedResult) }
     }
 
     @Test
@@ -111,6 +123,6 @@ class UuidCommandTest {
         val result = command.test("--type ulid").stdout
         val trimmedResult = result.trim()
 
-        assertDoesNotThrow {  ULID.parseULID(trimmedResult)}
+        assertDoesNotThrow { ULID.parseULID(trimmedResult) }
     }
 }
