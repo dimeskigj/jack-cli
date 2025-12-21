@@ -9,11 +9,10 @@ QR codes and dummy text, jack aims to be your swiss knife 🗡️ for everyday d
 - **UUID Generation**: Create version 4 UUIDs in bulk
 - **Lorem Ipsum**: Generate customizable placeholder text
 - **QR Codes**: Convert text/URLs to QR code PNGs
+- **Hash Generation**: Compute hashes (MD5, SHA1, SHA256, SHA512)
 
 ### Coming Soon 🚧
 - Data encoding (Base64, URL)
-- Hash generation (MD5, SHA)
-- Time utilities (formatting, conversions)
 - File operations (checksums, info)
 - Security tools (password generator)
 - Color conversions (HEX ↔ RGB)
