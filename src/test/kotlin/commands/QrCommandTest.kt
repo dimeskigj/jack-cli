@@ -20,24 +20,25 @@ class QrCommandTest {
 
     @Test
     fun `should require input and output parameters`() {
-        val result = command.test("--input test --output ${tempFile.resolve("qr.png")}")
-        assertEquals("", result.stdout)
+        val outputFile = tempFile.resolve("qr.png")
+        val result = command.test(listOf("test", "--output", outputFile.absolutePath))
+        assert(result.stdout.contains("QR code successfully generated at:"))
         assertEquals("", result.stderr)
         assertEquals(0, result.statusCode)
     }
 
     @Test
     fun `should fail when required parameters are missing`() {
-        val result = command.test()
+        val result = command.test(emptyList())
         assertEquals(1, result.statusCode)
-        assert(result.stderr.contains("Missing option --input", ignoreCase = true))
-        assert(result.stderr.contains("Missing option --output", ignoreCase = true))
+        assert(result.stderr.contains("missing argument", ignoreCase = true))
+        assert(result.stderr.contains("missing option --output", ignoreCase = true))
     }
 
     @Test
     fun `should use default colors when not specified`() {
         val outputFile = tempFile.resolve("qr.png")
-        command.test("--input test --output $outputFile")
+        command.test(listOf("test", "--output", outputFile.absolutePath))
 
         verify(mockQrCodeWriterService).writeQrCode(
             content = "test",
@@ -50,7 +51,7 @@ class QrCommandTest {
     @Test
     fun `should accept custom colors`() {
         val outputFile = tempFile.resolve("qr.png")
-        command.test("--input test --output $outputFile --backgroundColor 00FF00 --foregroundColor FF0000FF")
+        command.test(listOf("test", "--output", outputFile.absolutePath, "-b", "00FF00", "-f", "FF0000FF"))
 
         verify(mockQrCodeWriterService).writeQrCode(
             content = "test",
@@ -63,16 +64,16 @@ class QrCommandTest {
     @Test
     fun `should validate color format`() {
         val outputFile = tempFile.resolve("qr.png")
-        val result = command.test("--input test --output $outputFile --backgroundColor invalid")
+        val result = command.test(listOf("test", "--output", outputFile.absolutePath, "-b", "invalid"))
 
         assertEquals(1, result.statusCode)
-        assert(result.stderr.contains("invalid value for --backgroundColor", ignoreCase = true))
+        assert(result.stderr.contains("invalid value for -b", ignoreCase = true))
     }
 
     @Test
     fun `should delegate QR generation to service`() {
         val outputFile = tempFile.resolve("qr.png")
-        command.test("--input test --output $outputFile")
+        command.test(listOf("test", "--output", outputFile.absolutePath))
 
         verify(mockQrCodeWriterService).writeQrCode(
             content = "test",

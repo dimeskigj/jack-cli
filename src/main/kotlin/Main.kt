@@ -2,6 +2,8 @@ package org.jack
 
 import com.github.ajalt.clikt.core.main
 import com.github.ajalt.clikt.core.subcommands
+import org.jack.features.hash.HashCommand
+import org.jack.features.hash.services.impl.HashServiceImpl
 import org.jack.features.jack.JackCommand
 import org.jack.features.lorem.LoremCommand
 import org.jack.features.lorem.services.impl.LoremIpsumServiceImpl
@@ -16,11 +18,13 @@ val uuidService = UuidServiceImpl()
 val loremIpsumService = LoremIpsumServiceImpl()
 val qrCodeWriterService = QrCodeWriterServiceImpl()
 val timestampService = TimestampServiceImpl()
+val hashService = HashServiceImpl()
 
 val uuidCommand = UuidCommand(uuidService)
 val loremCommand = LoremCommand(loremIpsumService)
 val qrCommand = QrCommand(qrCodeWriterService)
 val timestampCommand = TimestampCommand(timestampService)
+val hashCommand = HashCommand(hashService)
 
 fun main(args: Array<String>) =
     JackCommand()
@@ -29,4 +33,5 @@ fun main(args: Array<String>) =
             loremCommand,
             qrCommand,
             timestampCommand,
+            hashCommand,
         ).main(args)
