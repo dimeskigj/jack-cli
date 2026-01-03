@@ -5,10 +5,15 @@ import org.jack.features.hash.HashCommand
 import org.jack.features.hash.services.impl.HashServiceImpl
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
+import org.junit.jupiter.api.io.TempDir
 import java.io.ByteArrayInputStream
+import java.io.File
 import kotlin.test.assertEquals
 
 class HashCommandTest {
+    @TempDir
+    lateinit var tempDir: File
+
     private val hashService = HashServiceImpl()
     private val command = HashCommand(hashService)
 
@@ -16,6 +21,16 @@ class HashCommandTest {
     fun `when input passed expect no error`() {
         val result = assertDoesNotThrow { command.test("hello") }
         assert(result.stderr.isEmpty())
+    }
+
+    @Test
+    fun `when file passed expect correct sha256 hash`() {
+        val file = tempDir.resolve("test.txt")
+        file.writeText("hello")
+        val result = command.test(listOf("--file", file.absolutePath))
+        // SHA-256 of "hello"
+        val expected = "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824"
+        assertEquals(expected, result.stdout.trim())
     }
 
     @Test

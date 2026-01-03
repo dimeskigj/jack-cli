@@ -20,6 +20,7 @@ const val UUID_COUNT_MUST_BE_POSITIVE_INTEGER = "Must be a positive integer"
 const val UUID_TYPE_NAME = "--type"
 const val UUID_TYPE_NAME_SHORT = "-t"
 const val UUID_TYPE_HELP = "The type of the unique identifier"
+const val DEFAULT_UUID_COUNT = 1
 
 class UuidCommand(
     private val uuidService: UuidService,
@@ -28,7 +29,7 @@ class UuidCommand(
         UUID_COUNT_NAME,
         UUID_COUNT_NAME_SHORT,
         help = UUID_COUNT_HELP,
-    ).int().default(1).validate {
+    ).int().default(DEFAULT_UUID_COUNT).validate {
         require(it > 0) {
             UUID_COUNT_MUST_BE_POSITIVE_INTEGER
         }

@@ -12,6 +12,7 @@ const val UNIT_OPTION_NAME = "--unit"
 const val UNIT_OPTION_SHORT = "-u"
 const val UNIT_OPTION_HELP = "The units to use for the timestamp"
 const val HELP_TEXT = "Get a timestamp"
+val DEFAULT_EPOCH_UNIT = EpochUnits.MILLISECONDS
 
 enum class EpochUnits { SECONDS, MILLISECONDS }
 
@@ -23,7 +24,7 @@ class TimestampCommand(
         UNIT_OPTION_SHORT,
         help = UNIT_OPTION_HELP,
     ).enum<EpochUnits>()
-        .default(EpochUnits.MILLISECONDS)
+        .default(DEFAULT_EPOCH_UNIT)
 
     override fun help(context: Context) = HELP_TEXT
 

@@ -14,6 +14,7 @@ const val LOREM_COUNT_NAME = "--count"
 const val LOREM_COUNT_NAME_SHORT = "-c"
 const val LOREM_COUNT_HELP = "Word count of the generated text"
 const val LOREM_COUNT_MUST_BE_POSITIVE_INTEGER = "Must be a positive integer"
+const val DEFAULT_LOREM_COUNT = 10
 
 class LoremCommand(
     private val loremIpsumService: LoremIpsumService,
@@ -22,7 +23,7 @@ class LoremCommand(
         LOREM_COUNT_NAME,
         LOREM_COUNT_NAME_SHORT,
         help = LOREM_COUNT_HELP,
-    ).int().default(10).validate {
+    ).int().default(DEFAULT_LOREM_COUNT).validate {
         require(it > 0) {
             LOREM_COUNT_MUST_BE_POSITIVE_INTEGER
         }
