@@ -3,6 +3,7 @@ package org.jack.features.qr
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.core.Context
 import com.github.ajalt.clikt.parameters.arguments.argument
+import com.github.ajalt.clikt.parameters.arguments.optional
 import com.github.ajalt.clikt.parameters.options.convert
 import com.github.ajalt.clikt.parameters.options.default
 import com.github.ajalt.clikt.parameters.options.help
@@ -12,7 +13,6 @@ import com.github.ajalt.clikt.parameters.types.file
 import features.qr.utils.toRgbaColorCode
 import org.jack.features.qr.services.QrCodeWriterService
 import org.jack.utils.readArgumentOrStdin
-import com.github.ajalt.clikt.parameters.arguments.optional
 
 const val QR_COMMAND_NAME = "qr"
 const val QR_COMMAND_HELP = "Generate a QR code"
