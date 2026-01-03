@@ -10,6 +10,7 @@ import com.github.ajalt.clikt.parameters.types.enum
 import com.github.ajalt.clikt.parameters.types.file
 import org.jack.features.hash.services.HashAlgorithm
 import org.jack.features.hash.services.HashService
+import org.jack.utils.readArgumentOrStdin
 
 const val HASH_COMMAND_NAME = "hash"
 const val HASH_HELP = "Compute hash of a string or file"
@@ -44,9 +45,14 @@ class HashCommand(
         val text =
             when {
                 file != null -> file!!.readText()
-                input != null -> input!!
-                else -> System.`in`.bufferedReader().readText()
+                else -> readArgumentOrStdin(input)
             }
+
+        if (text == null) {
+            echo("Error: No input provided", err = true)
+            return
+        }
+
         val result = hashService.hash(text, algorithm)
         echo(result)
     }

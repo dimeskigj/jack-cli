@@ -5,6 +5,10 @@ import com.github.ajalt.clikt.core.subcommands
 import org.jack.features.hash.HashCommand
 import org.jack.features.hash.services.impl.HashServiceImpl
 import org.jack.features.jack.JackCommand
+import org.jack.features.json.JsonCommand
+import org.jack.features.json.services.impl.JsonServiceImpl
+import org.jack.features.jwt.JwtCommand
+import org.jack.features.jwt.services.impl.JwtServiceImpl
 import org.jack.features.lorem.LoremCommand
 import org.jack.features.lorem.services.impl.LoremIpsumServiceImpl
 import org.jack.features.qr.QrCommand
@@ -19,12 +23,16 @@ val loremIpsumService = LoremIpsumServiceImpl()
 val qrCodeWriterService = QrCodeWriterServiceImpl()
 val timestampService = TimestampServiceImpl()
 val hashService = HashServiceImpl()
+val jwtService = JwtServiceImpl()
+val jsonService = JsonServiceImpl()
 
 val uuidCommand = UuidCommand(uuidService)
 val loremCommand = LoremCommand(loremIpsumService)
 val qrCommand = QrCommand(qrCodeWriterService)
 val timestampCommand = TimestampCommand(timestampService)
 val hashCommand = HashCommand(hashService)
+val jwtCommand = JwtCommand(jwtService)
+val jsonCommand = JsonCommand(jsonService)
 
 fun main(args: Array<String>) =
     JackCommand()
@@ -34,4 +42,6 @@ fun main(args: Array<String>) =
             qrCommand,
             timestampCommand,
             hashCommand,
+            jwtCommand,
+            jsonCommand,
         ).main(args)

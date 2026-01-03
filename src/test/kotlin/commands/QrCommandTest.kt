@@ -31,8 +31,14 @@ class QrCommandTest {
     fun `should fail when required parameters are missing`() {
         val result = command.test(emptyList())
         assertEquals(1, result.statusCode)
-        assert(result.stderr.contains("missing argument", ignoreCase = true))
         assert(result.stderr.contains("missing option --output", ignoreCase = true))
+    }
+
+    @Test
+    fun `should fail when input is missing`() {
+        val outputFile = tempFile.resolve("qr.png")
+        val result = command.test(listOf("--output", outputFile.absolutePath))
+        assert(result.stderr.contains("Error: No content provided"))
     }
 
     @Test

@@ -6,7 +6,6 @@ import org.jack.features.hash.services.impl.HashServiceImpl
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.io.TempDir
-import java.io.ByteArrayInputStream
 import java.io.File
 import kotlin.test.assertEquals
 
@@ -59,18 +58,10 @@ class HashCommandTest {
 
     @Test
     fun `when no argument passed expect input from stdin`() {
-        val originalIn = System.`in`
-        try {
-            val input = "hello"
-            val inputStream = ByteArrayInputStream(input.toByteArray())
-            System.setIn(inputStream)
-
-            val result = command.test("")
-            // SHA-256 of "hello"
-            val expected = "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824"
-            assertEquals(expected, result.stdout.trim())
-        } finally {
-            System.setIn(originalIn)
-        }
+        val input = "hello"
+        val result = command.test(emptyList(), stdin = input, inputInteractive = false)
+        // SHA-256 of "hello"
+        val expected = "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824"
+        assertEquals(expected, result.stdout.trim())
     }
 }

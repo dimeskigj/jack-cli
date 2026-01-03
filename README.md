@@ -38,6 +38,21 @@ jack timestamp
 jack timestamp --unit MILLISECONDS
 ```
 
+### JWT Decoding
+Decode and pretty print a JWT token.
+```bash
+jack jwt "your.jwt.token"
+jack jwt "your.jwt.token" --secret "your-secret"
+```
+
+### JSON Formatting
+Verify and pretty print JSON input.
+```bash
+jack json '{"name":"jack","version":1}'
+jack json --file data.json --indent 2
+cat data.json | jack json
+```
+
 ## Installation
 
 ### From Source
@@ -61,6 +76,8 @@ Download the latest archive from the [releases page](https://github.com/dimeskig
 - **QR Codes**: PNG generation with custom colors.
 - **Hashing**: MD5, SHA1, SHA256, SHA512 support.
 - **Timestamps**: Seconds or milliseconds.
+- **JWT Decoding**: Pretty print header and payload with signature verification.
+- **JSON Formatting**: Verify and pretty print JSON with custom indentation.
 
 ## License
 MIT

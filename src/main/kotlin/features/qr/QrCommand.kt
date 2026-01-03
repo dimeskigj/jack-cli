@@ -11,6 +11,8 @@ import com.github.ajalt.clikt.parameters.options.required
 import com.github.ajalt.clikt.parameters.types.file
 import features.qr.utils.toRgbaColorCode
 import org.jack.features.qr.services.QrCodeWriterService
+import org.jack.utils.readArgumentOrStdin
+import com.github.ajalt.clikt.parameters.arguments.optional
 
 const val QR_COMMAND_NAME = "qr"
 const val QR_COMMAND_HELP = "Generate a QR code"
@@ -30,7 +32,7 @@ const val DEFAULT_FOREGROUND_COLOR = 0xFF000000.toInt()
 class QrCommand(
     private val qrCodeWriterService: QrCodeWriterService,
 ) : CliktCommand(name = QR_COMMAND_NAME) {
-    private val input by argument(help = QR_INPUT_HELP)
+    private val input by argument(help = QR_INPUT_HELP).optional()
 
     private val output by option(QR_OUTPUT_NAME, QR_OUTPUT_NAME_SHORT)
         .help(QR_OUTPUT_HELP)
@@ -50,8 +52,15 @@ class QrCommand(
     override fun help(context: Context): String = QR_COMMAND_HELP
 
     override fun run() {
+        val content = readArgumentOrStdin(input)
+
+        if (content == null) {
+            echo("Error: No content provided", err = true)
+            return
+        }
+
         qrCodeWriterService.writeQrCode(
-            content = input,
+            content = content,
             outputFile = output,
             backgroundColorRgba = backgroundColor,
             foregroundColorRgba = foregroundColor,
