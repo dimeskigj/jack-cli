@@ -57,7 +57,7 @@ jobs:
         uses: graalvm/setup-graalvm@v1
         with:
           java-version: '21'
-          distribution: 'graalvm'
+          distribution: 'graalvm-community'
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Gradle
@@ -141,6 +141,6 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh pr create --title "Release v${{ needs.prepare.outputs.release_version }}" \
+          gh pr create --title "chore: [bot] release v${{ needs.prepare.outputs.release_version }}" \
             --body "Automated release for version ${{ needs.prepare.outputs.release_version }}" \
             --base main --head ${{ needs.prepare.outputs.branch_name }}

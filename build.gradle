@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.plugin.serialization' version '2.1.20'
     id 'application'
     id "com.diffplug.spotless" version "7.0.0.BETA4"
+    id 'org.graalvm.buildtools.native' version '0.10.4'
 }
 
 group = 'org.jack'
@@ -45,6 +46,17 @@ dependencyLocking {
 
 application {
     mainClass = 'org.jack.MainKt'
+}
+
+graalvmNative {
+    binaries {
+        main {
+            imageName.set("jack")
+            mainClass.set("org.jack.MainKt")
+            fallback.set(false)
+        }
+    }
+    toolchainDetection.set(true)
 }
 
 apply from: 'spotless.gradle'
