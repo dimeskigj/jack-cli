@@ -42,7 +42,13 @@ try {
 # 4. Add to PATH
 $UserPath = [Environment]::GetEnvironmentVariable("Path", "User")
 if ($UserPath -notlike "*$BinDir*") {
-    [Environment]::SetEnvironmentVariable("Path", "$UserPath;$BinDir", "User")
+    if ([string]::IsNullOrEmpty($UserPath)) {
+        $NewUserPath = $BinDir
+    } else {
+        $TrimmedUserPath = $UserPath.TrimEnd(';')
+        $NewUserPath = "$TrimmedUserPath;$BinDir"
+    }
+    [Environment]::SetEnvironmentVariable("Path", $NewUserPath, "User")
     Write-Host "Added $BinDir to User PATH."
 } else {
     Write-Host "Path already configured."
