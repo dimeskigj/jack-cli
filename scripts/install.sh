@@ -35,10 +35,9 @@ case "${OS}" in
         ;;
     Darwin*)
         case "${ARCH}" in
-            x86_64) ASSET_NAME="jack-macos-x64" ;;
             arm64) ASSET_NAME="jack-macos-arm64" ;;
             *)
-                echo "Unsupported architecture on macOS: ${ARCH}"
+                echo "Unsupported architecture on macOS: ${ARCH}. Only Apple Silicon (ARM64) is supported."
                 exit 1
                 ;;
         esac
