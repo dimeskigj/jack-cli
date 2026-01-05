@@ -79,22 +79,23 @@ jobs:
         if: runner.os == 'Linux'
         run: ./gradlew assembleDist
 
+      - name: Prepare Artifacts (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          mv build/native/nativeCompile/jack jack-linux-x64
+
       - name: Prepare Artifacts (Windows)
         if: runner.os == 'Windows'
         shell: pwsh
         run: |
           Move-Item -Path "build/native/nativeCompile/jack.exe" -Destination "jack-windows-x64.exe"
-          
-      - name: Prepare Artifacts (Windows)
-        if: runner.os == 'Windows'
-        run: |
-          mv build/native/nativeCompile/jack.exe jack-windows-x64.exe
 
       - name: Prepare Artifacts (macOS)
         if: runner.os == 'macOS'
         run: |
           mv build/native/nativeCompile/jack jack-macos-x64
- (Linux)
+
+      - name: Upload Native Image (Linux)
         if: runner.os == 'Linux'
         uses: actions/upload-artifact@v4
         with:
@@ -114,7 +115,6 @@ jobs:
         with:
           name: native-macos-x64
           path: jack-macos-x64
-          if-no-files-found: ignore
 
       - name: Upload Distribution (Linux only)
         if: runner.os == 'Linux'
