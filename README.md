@@ -55,6 +55,18 @@ cat data.json | jack json
 
 ## Installation
 
+### Quick Install (Recommended)
+
+**Linux / macOS:**
+```bash
+curl -fsSL https://raw.githubusercontent.com/dimeskigj/jack-cli/main/scripts/install.sh | bash
+```
+
+**Windows (PowerShell):**
+```powershell
+iwr https://raw.githubusercontent.com/dimeskigj/jack-cli/main/scripts/install.ps1 -useb | iex
+```
+
 ### From Source
 1. Clone the repository:
    ```bash
@@ -66,6 +78,13 @@ cat data.json | jack json
    ./gradlew installDist
    ```
 3. Add the binary to your `PATH`. The binary is located at `build/install/jack/bin`.
+
+### Native Image
+To build a standalone executable that doesn't require Java installed:
+```bash
+./gradlew nativeCompile
+```
+The executable will be located in `build/native/nativeCompile`.
 
 ### From Releases
 Download the latest archive from the [releases page](https://github.com/dimeskigj/jack-cli/releases), extract it, and add the `bin` folder to your `PATH`.
