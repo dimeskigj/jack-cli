@@ -29,13 +29,32 @@ if (-not (Test-Path $BinDir)) {
 }
 
 # 3. Download Native Binary
-$AssetUrl = "https://github.com/$Repo/releases/download/$LatestTag/jack-windows-x64.exe"
+$Arch = $env:PROCESSOR_ARCHITECTURE
+switch ($Arch) {
+    "AMD64" {
+        $AssetName = "jack-windows-x64.exe"
+    }
+    "ARM64" {
+        $AssetName = "jack-windows-arm64.exe"
+    }
+    default {
+        Write-Error "Unsupported processor architecture '$Arch'. Only AMD64 and ARM64 are supported by this installer."
+        exit 1
+    }
+}
+$AssetUrl = "https://github.com/$Repo/releases/download/$LatestTag/$AssetName"
 
 Write-Host "Downloading $AssetUrl..."
 try {
     Invoke-WebRequest -Uri $AssetUrl -OutFile $ExePath
 } catch {
-    Write-Error "Failed to download release asset. Ensure the release has a 'jack-windows-x64.exe' asset."
+    Write-Error "Failed to download release asset '$AssetName'. Ensure the release has a '$AssetName' asset."
+    exit 1
+}
+
+# Verify download
+if (-not (Test-Path $ExePath) -or (Get-Item $ExePath).Length -eq 0) {
+    Write-Error "Download failed or file is empty."
     exit 1
 }
 

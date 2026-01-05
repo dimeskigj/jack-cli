@@ -19,12 +19,34 @@ fi
 
 echo "Latest version: $LATEST_TAG"
 
-# 2. Determine OS and Asset Name
+# 2. Determine OS, architecture, and Asset Name
 OS="$(uname -s)"
+ARCH="$(uname -m)"
 case "${OS}" in
-    Linux*)     ASSET_NAME="jack-linux-x64";;
-    Darwin*)    ASSET_NAME="jack-macos-x64";;
-    *)          echo "Unsupported OS: ${OS}"; exit 1;;
+    Linux*)
+        case "${ARCH}" in
+            x86_64|amd64) ASSET_NAME="jack-linux-x64" ;;
+            arm64|aarch64) ASSET_NAME="jack-linux-arm64" ;;
+            *)
+                echo "Unsupported architecture on Linux: ${ARCH}"
+                exit 1
+                ;;
+        esac
+        ;;
+    Darwin*)
+        case "${ARCH}" in
+            x86_64) ASSET_NAME="jack-macos-x64" ;;
+            arm64) ASSET_NAME="jack-macos-arm64" ;;
+            *)
+                echo "Unsupported architecture on macOS: ${ARCH}"
+                exit 1
+                ;;
+        esac
+        ;;
+    *)
+        echo "Unsupported OS: ${OS}"
+        exit 1
+        ;;
 esac
 
 # 3. Prepare install directory
@@ -34,7 +56,13 @@ mkdir -p "$BIN_DIR"
 ASSET_URL="https://github.com/$REPO/releases/download/$LATEST_TAG/$ASSET_NAME"
 
 echo "Downloading $ASSET_URL..."
-curl -L -o "$EXE_PATH" "$ASSET_URL"
+curl -fL -o "$EXE_PATH" "$ASSET_URL"
+
+# Verify download succeeded and file is non-empty
+if [ ! -s "$EXE_PATH" ]; then
+    echo "Error: Downloaded file is missing or empty: $EXE_PATH"
+    exit 1
+fi
 
 # 5. Make executable
 chmod +x "$EXE_PATH"
@@ -46,6 +74,11 @@ case "$SHELL" in
   */bash) SHELL_CONFIG="$HOME/.bashrc" ;;
   *) SHELL_CONFIG="$HOME/.profile" ;;
 esac
+
+# Ensure the shell config file exists before grepping/appending
+if [ ! -f "$SHELL_CONFIG" ]; then
+    touch "$SHELL_CONFIG"
+fi
 
 if ! grep -q "$BIN_DIR" "$SHELL_CONFIG"; then
     echo "" >> "$SHELL_CONFIG"

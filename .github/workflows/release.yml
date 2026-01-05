@@ -61,23 +61,29 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
+        uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
 
       - name: Make Gradlew executable (Unix)
         if: runner.os != 'Windows'
         run: chmod +x gradlew
 
-      - name: Build Native Image
+      - name: Build Native Image (Windows)
+        if: runner.os == 'Windows'
+        run: .\gradlew.bat nativeCompile
+
+      - name: Build Native Image (Unix)
+        if: runner.os != 'Windows'
         run: ./gradlew nativeCompile
 
       - name: Build Distribution (Linux only)
         if: runner.os == 'Linux'
         run: ./gradlew assembleDist
 
-      - name: Prepare Artifacts (Linux)
-        if: runner.os == 'Linux'
+      - name: Prepare Artifacts (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
         run: |
-          mv build/native/nativeCompile/jack jack-linux-x64
+          Move-Item -Path "build/native/nativeCompile/jack.exe" -Destination "jack-windows-x64.exe"
           
       - name: Prepare Artifacts (Windows)
         if: runner.os == 'Windows'
@@ -88,15 +94,26 @@ jobs:
         if: runner.os == 'macOS'
         run: |
           mv build/native/nativeCompile/jack jack-macos-x64
-
-      - name: Upload Native Image
+ (Linux)
+        if: runner.os == 'Linux'
         uses: actions/upload-artifact@v4
         with:
-          name: native-${{ matrix.os }}
-          path: |
-            jack-linux-x64
-            jack-windows-x64.exe
-            jack-macos-x64
+          name: native-linux-x64
+          path: jack-linux-x64
+
+      - name: Upload Native Image (Windows)
+        if: runner.os == 'Windows'
+        uses: actions/upload-artifact@v4
+        with:
+          name: native-windows-x64
+          path: jack-windows-x64.exe
+
+      - name: Upload Native Image (macOS)
+        if: runner.os == 'macOS'
+        uses: actions/upload-artifact@v4
+        with:
+          name: native-macos-x64
+          path: jack-macos-x64
           if-no-files-found: ignore
 
       - name: Upload Distribution (Linux only)
