@@ -4,11 +4,20 @@ A versatile CLI tool for common developer tasks.
 
 ## Usage
 
-### UUID Generation
+### UUIDs
+#### UUID Generation
 Generate one or more UUIDs or ULIDs.
 ```bash
 jack uuid
 jack uuid --count 5 --type ULID
+```
+
+#### Validate UUID/ULID
+Validate a single UUID or ULID value. Use `-v` or `--validate` with `--type` to specify the identifier type.
+```bash
+jack uuid -v 3fa85f64-5717-4562-b3fc-2c963f66afa6
+
+jack uuid --type ULID --validate 01ARYZ6S41TSV4RRFFQ69G5FAV
 ```
 
 ### Lorem Ipsum
@@ -91,6 +100,7 @@ Download the latest archive from the [releases page](https://github.com/dimeskig
 
 ## Features
 - **UUID/ULID**: Bulk generation of unique identifiers.
+- **UUID/ULID Validating**: Validating a provided UUID/ULID.
 - **Lorem Ipsum**: Customizable placeholder text.
 - **QR Codes**: PNG generation with custom colors.
 - **Hashing**: MD5, SHA1, SHA256, SHA512 support.
