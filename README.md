@@ -2,7 +2,7 @@
   <img src="docs/img/cover.gif" width="800">
 </p>
 
-# <p align="center">Jack 🛠️</p>
+# <p align="center">JACK</p>
 
 <p align="center">
   <strong>A versatile CLI tool for common developer tasks.</strong>
