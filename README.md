@@ -1,6 +1,18 @@
-# Jack 🛠️
+<p align="center">
+  <img src="docs/img/cover.gif" width="800">
+</p>
 
-A versatile CLI tool for common developer tasks.
+# <p align="center">Jack 🛠️</p>
+
+<p align="center">
+  <strong>A versatile CLI tool for common developer tasks.</strong>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Language-Kotlin-purple?logo=kotlin" alt="Kotlin">
+  <img src="https://img.shields.io/badge/License-MIT-blueviolet" alt="MIT License">
+  <img src="https://img.shields.io/badge/PRs-Welcome-mediumpurple" alt="PRs Welcome">
+</p>
 
 ## Usage
 
