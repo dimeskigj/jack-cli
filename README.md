@@ -20,14 +20,6 @@ jack uuid validate <uuid>
 jack uuid validate --type ULID <ulid>
 ```
 
-#### Validate UUID/ULID
-Validate a single UUID or ULID value. Use `-v` or `--validate` with `--type` to specify the identifier type.
-```bash
-jack uuid -v 3fa85f64-5717-4562-b3fc-2c963f66afa6
-
-jack uuid --type ULID --validate 01ARYZ6S41TSV4RRFFQ69G5FAV
-```
-
 ### Lorem Ipsum
 Generate placeholder text.
 ```bash
