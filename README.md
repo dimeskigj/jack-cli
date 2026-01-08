@@ -16,7 +16,7 @@ jack uuid generate --count 5 --type ULID
 Validate a single UUID or ULID value using the `validate` subcommand.
 ```bash
 jack uuid validate <uuid>
-
+echo "3fa85f64-5717-4562-b3fc-2c963f66afa6" | jack uuid validate
 jack uuid validate --type ULID <ulid>
 ```
 
