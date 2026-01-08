@@ -6,11 +6,7 @@ A versatile CLI tool for common developer tasks.
 
 ### UUIDs
 #### UUID Generation
-<<<<<<< HEAD
 Generate one or more UUIDs or ULIDs using the `generate` subcommand. 
-=======
-Generate one or more UUIDs or ULIDs.
->>>>>>> 98a7bd8f7a6ddcda39cc31c425c1fae9d893e5b2
 ```bash
 jack uuid generate
 jack uuid generate --count 5 --type ULID
