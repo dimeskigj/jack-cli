@@ -1,30 +1,33 @@
 package org.jack.features.qr.services.impl
 
+import features.qr.utils.PngEncoder
 import org.jack.features.qr.services.QrCodeWriterService
-import qrcode.QRCode
-import qrcode.QRCodeShapesEnum
+import qrcode.raw.QRCodeProcessor
 import java.io.File
 import java.io.FileOutputStream
 
 class QrCodeWriterServiceImpl : QrCodeWriterService {
+    companion object {
+        private const val CELL_SIZE = 25
+    }
+
     override fun writeQrCode(
         content: String,
         outputFile: File,
         backgroundColorRgba: Int,
         foregroundColorRgba: Int,
     ) {
-        val qrCode =
-            QRCode
-                .ofSquares()
-                .withShape(QRCodeShapesEnum.SQUARE)
-                .withSize(25)
-                .withInnerSpacing(0)
-                .withBackgroundColor(backgroundColorRgba)
-                .withColor(foregroundColorRgba)
-                .build(content)
+        val rawData = QRCodeProcessor(content).encode()
+        val moduleCount = rawData.size
+        val imageSize = moduleCount * CELL_SIZE
 
-        val qrRender = qrCode.render()
+        val pngBytes =
+            PngEncoder.encode(imageSize, imageSize) { x, y ->
+                val row = y / CELL_SIZE
+                val col = x / CELL_SIZE
+                if (rawData[row][col].dark) foregroundColorRgba else backgroundColorRgba
+            }
 
-        qrRender.writeImage(FileOutputStream(outputFile))
+        FileOutputStream(outputFile).use { it.write(pngBytes) }
     }
 }
