@@ -4,11 +4,20 @@ A versatile CLI tool for common developer tasks.
 
 ## Usage
 
-### UUID Generation
-Generate one or more UUIDs or ULIDs.
+### UUIDs
+#### UUID Generation
+Generate one or more UUIDs or ULIDs using the `generate` subcommand. 
 ```bash
-jack uuid
-jack uuid --count 5 --type ULID
+jack uuid generate
+jack uuid generate --count 5 --type ULID
+```
+
+#### Validate UUID/ULID
+Validate a single UUID or ULID value using the `validate` subcommand.
+```bash
+jack uuid validate <uuid>
+
+jack uuid validate --type ULID <ulid>
 ```
 
 ### Lorem Ipsum
@@ -90,7 +99,7 @@ The executable will be located in `build/native/nativeCompile`.
 Download the latest archive from the [releases page](https://github.com/dimeskigj/jack-cli/releases), extract it, and add the `bin` folder to your `PATH`.
 
 ## Features
-- **UUID/ULID**: Bulk generation of unique identifiers.
+- **UUID/ULID**: Validation and bulk generation of unique identifiers.
 - **Lorem Ipsum**: Customizable placeholder text.
 - **QR Codes**: PNG generation with custom colors.
 - **Hashing**: MD5, SHA1, SHA256, SHA512 support.
