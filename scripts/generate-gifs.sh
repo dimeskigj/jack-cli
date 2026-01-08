@@ -3,7 +3,6 @@
 
 mkdir -p docs/img
 
-for tape in docs/vhs/*.tape; do
-    echo "Processing $tape..."
-    vhs < "$tape"
-done
+echo "Processing docs/vhs/cover.tape..."
+vhs < "docs/vhs/cover.tape"
+
