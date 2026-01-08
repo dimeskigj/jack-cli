@@ -54,11 +54,6 @@ graalvmNative {
             imageName.set("jack")
             mainClass.set("org.jack.MainKt")
             fallback.set(false)
-
-            // QR code PNG rendering uses AWT BufferedImage under the hood (via qrcode-kotlin).
-            // Native Image needs explicit AWT support enabled, otherwise runtime fails with:
-            // "java.lang.UnsatisfiedLinkError: No awt in java.library.path".
-            buildArgs.add("--enable-awt")
         }
     }
     toolchainDetection.set(true)
