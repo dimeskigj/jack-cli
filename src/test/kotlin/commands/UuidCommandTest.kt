@@ -1,8 +1,11 @@
 package commands
 
+import com.github.ajalt.clikt.core.subcommands
 import com.github.ajalt.clikt.testing.test
 import org.jack.features.uuid.UuidCommand
 import org.jack.features.uuid.services.impl.UuidServiceImpl
+import org.jack.features.uuid.subcommands.GenerateCommand
+import org.jack.features.uuid.subcommands.ValidateCommand
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
 import ulid.ULID
@@ -12,7 +15,10 @@ import kotlin.test.assertTrue
 
 class UuidCommandTest {
     private val uuidService = UuidServiceImpl()
-    private val command = UuidCommand(uuidService)
+    private val command = UuidCommand().subcommands(
+        GenerateCommand(uuidService),
+        ValidateCommand(uuidService),
+    )
 
     @Test
     fun `when no arguments passed expect no error`() {
@@ -148,30 +154,6 @@ class UuidCommandTest {
     @Test
     fun `validate subcommand with invalid ulid prints Status Invalid`() {
         val result = command.test("validate --type ulid gibberish-thats-not-ulid-67")
-        assertTrue(result.stderr.contains("Status: Invalid"))
-    }
-
-    @Test
-    fun `validate valid uuid prints Status Valid`() {
-        val result = command.test("-v 3fa85f64-5717-4562-b3fc-2c963f66afa6")
-        assertTrue(result.stdout.contains("Status: Valid"))
-    }
-
-    @Test
-    fun `validate invalid uuid prints Status Invalid`() {
-        val result = command.test("-v not-a-uuid-da")
-        assertTrue(result.stderr.contains("Status: Invalid"))
-    }
-
-    @Test
-    fun `validate valid ulid prints Status Valid`() {
-        val result = command.test("--type ulid -v 01ARYZ6S41TSV4RRFFQ69G5FAV")
-        assertTrue(result.stdout.contains("Status: Valid"))
-    }
-
-    @Test
-    fun `validate invalid ulid prints Status Invalid`() {
-        val result = command.test("--type ulid -v gibberish-thats-not-ulid-67")
         assertTrue(result.stderr.contains("Status: Invalid"))
     }
 }
