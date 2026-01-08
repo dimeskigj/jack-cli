@@ -1,10 +1,24 @@
-# Jack 🛠️
+<p align="center">
+  <img src="docs/img/cover.gif" width="800">
+</p>
 
-A versatile CLI tool for common developer tasks.
+# <p align="center">Jack 🛠️</p>
+
+<p align="center">
+  <strong>A versatile CLI tool for common developer tasks.</strong>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Language-Kotlin-purple?logo=kotlin" alt="Kotlin">
+  <img src="https://img.shields.io/badge/License-MIT-blueviolet" alt="MIT License">
+  <img src="https://img.shields.io/badge/PRs-Welcome-mediumpurple" alt="PRs Welcome">
+</p>
 
 ## Usage
 
 ### UUIDs
+<img src="docs/img/uuid.gif" width="600">
+
 #### UUID Generation
 Generate one or more UUIDs or ULIDs using the `generate` subcommand. 
 ```bash
@@ -21,12 +35,16 @@ jack uuid validate --type ULID <ulid>
 ```
 
 ### Lorem Ipsum
+<img src="docs/img/lorem.gif" width="600">
+
 Generate placeholder text.
 ```bash
 jack lorem --count 50
 ```
 
 ### QR Codes
+<img src="docs/img/qr.gif" width="600">
+
 Generate a QR code image from text or a URL.
 ```bash
 jack qr "https://github.com" --output github.png
@@ -34,6 +52,8 @@ jack qr "Hello World" --foregroundColor FF0000 --backgroundColor FFFFFF
 ```
 
 ### Hashing
+<img src="docs/img/hash.gif" width="600">
+
 Compute hashes for strings or files.
 ```bash
 jack hash "my secret string" --algorithm SHA256
@@ -41,6 +61,8 @@ jack hash --file path/to/file.txt --algorithm MD5
 ```
 
 ### Timestamps
+<img src="docs/img/timestamp.gif" width="600">
+
 Get the current Unix timestamp.
 ```bash
 jack timestamp
@@ -48,6 +70,8 @@ jack timestamp --unit MILLISECONDS
 ```
 
 ### JWT Decoding
+<img src="docs/img/jwt.gif" width="600">
+
 Decode and pretty print a JWT token.
 ```bash
 jack jwt "your.jwt.token"
@@ -55,6 +79,8 @@ jack jwt "your.jwt.token" --secret "your-secret"
 ```
 
 ### JSON Formatting
+<img src="docs/img/json.gif" width="600">
+
 Verify and pretty print JSON input.
 ```bash
 jack json '{"name":"jack","version":1}'
