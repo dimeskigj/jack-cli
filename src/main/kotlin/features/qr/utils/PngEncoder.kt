@@ -8,9 +8,17 @@ import java.util.zip.Deflater
 * The QR code package does not work with GraalVM, this is a manual implementation of the encoder as a workaround.
 */
 object PngEncoder {
-    private val SIGNATURE = byteArrayOf(
-        0x89.toByte(), 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A,
-    )
+    private val SIGNATURE =
+        byteArrayOf(
+            0x89.toByte(),
+            0x50,
+            0x4E,
+            0x47,
+            0x0D,
+            0x0A,
+            0x1A,
+            0x0A,
+        )
     private const val BIT_DEPTH: Byte = 8
     private const val COLOR_TYPE_RGBA: Byte = 6
     private const val FILTER_NONE: Byte = 0
@@ -19,7 +27,11 @@ object PngEncoder {
     private const val IHDR_LENGTH = 13
     private const val DEFLATE_BUFFER_SIZE = 16 * 1024
 
-    fun encode(width: Int, height: Int, pixelProvider: (x: Int, y: Int) -> Int): ByteArray {
+    fun encode(
+        width: Int,
+        height: Int,
+        pixelProvider: (x: Int, y: Int) -> Int,
+    ): ByteArray {
         require(width > 0 && height > 0) { "Dimensions must be positive" }
 
         val scanlines = buildScanlines(width, height, pixelProvider)
@@ -34,7 +46,11 @@ object PngEncoder {
         }
     }
 
-    private fun buildScanlines(width: Int, height: Int, pixelProvider: (Int, Int) -> Int): ByteArray {
+    private fun buildScanlines(
+        width: Int,
+        height: Int,
+        pixelProvider: (Int, Int) -> Int,
+    ): ByteArray {
         val bytesPerPixel = 4
         val out = ByteArrayOutputStream(height * (1 + width * bytesPerPixel))
         for (y in 0 until height) {
@@ -46,7 +62,10 @@ object PngEncoder {
         return out.toByteArray()
     }
 
-    private fun buildIhdr(width: Int, height: Int): ByteArray {
+    private fun buildIhdr(
+        width: Int,
+        height: Int,
+    ): ByteArray {
         val data = ByteArray(IHDR_LENGTH)
         writeIntBE(data, 0, width)
         writeIntBE(data, 4, height)
@@ -58,7 +77,11 @@ object PngEncoder {
         return data
     }
 
-    private fun writeChunk(out: ByteArrayOutputStream, type: String, data: ByteArray) {
+    private fun writeChunk(
+        out: ByteArrayOutputStream,
+        type: String,
+        data: ByteArray,
+    ) {
         require(type.length == 4) { "PNG chunk type must be 4 chars" }
 
         val typeBytes = type.encodeToByteArray()
@@ -90,7 +113,10 @@ object PngEncoder {
         }
     }
 
-    private fun writeRgba(out: ByteArrayOutputStream, argb: Int) {
+    private fun writeRgba(
+        out: ByteArrayOutputStream,
+        argb: Int,
+    ) {
         val a = (argb ushr 24) and 0xFF
         val r = (argb ushr 16) and 0xFF
         val g = (argb ushr 8) and 0xFF
@@ -101,14 +127,21 @@ object PngEncoder {
         out.write(a)
     }
 
-    private fun writeIntBE(out: ByteArrayOutputStream, value: Int) {
+    private fun writeIntBE(
+        out: ByteArrayOutputStream,
+        value: Int,
+    ) {
         out.write((value ushr 24) and 0xFF)
         out.write((value ushr 16) and 0xFF)
         out.write((value ushr 8) and 0xFF)
         out.write(value and 0xFF)
     }
 
-    private fun writeIntBE(buf: ByteArray, offset: Int, value: Int) {
+    private fun writeIntBE(
+        buf: ByteArray,
+        offset: Int,
+        value: Int,
+    ) {
         buf[offset] = ((value ushr 24) and 0xFF).toByte()
         buf[offset + 1] = ((value ushr 16) and 0xFF).toByte()
         buf[offset + 2] = ((value ushr 8) and 0xFF).toByte()
