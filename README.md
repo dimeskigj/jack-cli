@@ -6,7 +6,11 @@ A versatile CLI tool for common developer tasks.
 
 ### UUIDs
 #### UUID Generation
+<<<<<<< HEAD
 Generate one or more UUIDs or ULIDs using the `generate` subcommand. 
+=======
+Generate one or more UUIDs or ULIDs.
+>>>>>>> 98a7bd8f7a6ddcda39cc31c425c1fae9d893e5b2
 ```bash
 jack uuid generate
 jack uuid generate --count 5 --type ULID
@@ -18,6 +22,14 @@ Validate a single UUID or ULID value using the `validate` subcommand.
 jack uuid validate <uuid>
 
 jack uuid validate --type ULID <ulid>
+```
+
+#### Validate UUID/ULID
+Validate a single UUID or ULID value. Use `-v` or `--validate` with `--type` to specify the identifier type.
+```bash
+jack uuid -v 3fa85f64-5717-4562-b3fc-2c963f66afa6
+
+jack uuid --type ULID --validate 01ARYZ6S41TSV4RRFFQ69G5FAV
 ```
 
 ### Lorem Ipsum
