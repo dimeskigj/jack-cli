@@ -1,4 +1,4 @@
-package commands
+package services
 
 import org.jack.features.qr.services.impl.QrCodeWriterServiceImpl
 import org.junit.jupiter.api.Test
