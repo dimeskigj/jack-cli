@@ -34,6 +34,7 @@ fun main(args: Array<String>) {
             GenerateCommand(uuidService),
             ValidateCommand(uuidService),
         )
+
     val loremCommand = LoremCommand(loremIpsumService)
     val qrCommand = QrCommand(qrCodeWriterService)
     val timestampCommand = TimestampCommand(timestampService)

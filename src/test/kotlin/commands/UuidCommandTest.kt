@@ -15,10 +15,11 @@ import kotlin.test.assertTrue
 
 class UuidCommandTest {
     private val uuidService = UuidServiceImpl()
-    private val command = UuidCommand().subcommands(
-        GenerateCommand(uuidService),
-        ValidateCommand(uuidService),
-    )
+    private val command =
+        UuidCommand().subcommands(
+            GenerateCommand(uuidService),
+            ValidateCommand(uuidService),
+        )
 
     @Test
     fun `when no arguments passed expect no error`() {
