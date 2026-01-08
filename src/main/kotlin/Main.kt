@@ -17,24 +17,30 @@ import org.jack.features.timestamp.TimestampCommand
 import org.jack.features.timestamp.services.impl.TimestampServiceImpl
 import org.jack.features.uuid.UuidCommand
 import org.jack.features.uuid.services.impl.UuidServiceImpl
+import org.jack.features.uuid.subcommands.GenerateCommand
+import org.jack.features.uuid.subcommands.ValidateCommand
 
-val uuidService = UuidServiceImpl()
-val loremIpsumService = LoremIpsumServiceImpl()
-val qrCodeWriterService = QrCodeWriterServiceImpl()
-val timestampService = TimestampServiceImpl()
-val hashService = HashServiceImpl()
-val jwtService = JwtServiceImpl()
-val jsonService = JsonServiceImpl()
+fun main(args: Array<String>) {
+    val uuidService = UuidServiceImpl()
+    val loremIpsumService = LoremIpsumServiceImpl()
+    val qrCodeWriterService = QrCodeWriterServiceImpl()
+    val timestampService = TimestampServiceImpl()
+    val hashService = HashServiceImpl()
+    val jwtService = JwtServiceImpl()
+    val jsonService = JsonServiceImpl()
 
-val uuidCommand = UuidCommand(uuidService)
-val loremCommand = LoremCommand(loremIpsumService)
-val qrCommand = QrCommand(qrCodeWriterService)
-val timestampCommand = TimestampCommand(timestampService)
-val hashCommand = HashCommand(hashService)
-val jwtCommand = JwtCommand(jwtService)
-val jsonCommand = JsonCommand(jsonService)
+    val uuidCommand =
+        UuidCommand().subcommands(
+            GenerateCommand(uuidService),
+            ValidateCommand(uuidService),
+        )
+    val loremCommand = LoremCommand(loremIpsumService)
+    val qrCommand = QrCommand(qrCodeWriterService)
+    val timestampCommand = TimestampCommand(timestampService)
+    val hashCommand = HashCommand(hashService)
+    val jwtCommand = JwtCommand(jwtService)
+    val jsonCommand = JsonCommand(jsonService)
 
-fun main(args: Array<String>) =
     JackCommand()
         .subcommands(
             uuidCommand,
@@ -45,3 +51,4 @@ fun main(args: Array<String>) =
             jwtCommand,
             jsonCommand,
         ).main(args)
+}
