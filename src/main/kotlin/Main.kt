@@ -2,6 +2,7 @@ package org.jack
 
 import com.github.ajalt.clikt.core.main
 import com.github.ajalt.clikt.core.subcommands
+import org.jack.features.autocomplete.AutocompleteCommand
 import org.jack.features.hash.HashCommand
 import org.jack.features.hash.services.impl.HashServiceImpl
 import org.jack.features.jack.JackCommand
@@ -45,16 +46,21 @@ fun main(args: Array<String>) {
     val jwtCommand = JwtCommand(jwtService)
     val jsonCommand = JsonCommand(jsonService)
     val upgradeCommand = UpgradeCommand(upgradeService)
+    val completionCommand = AutocompleteCommand()
 
-    JackCommand()
-        .subcommands(
-            uuidCommand,
-            loremCommand,
-            qrCommand,
-            timestampCommand,
-            hashCommand,
-            jwtCommand,
-            jsonCommand,
-            upgradeCommand,
-        ).main(args)
+    val jackCommand =
+        JackCommand()
+            .subcommands(
+                uuidCommand,
+                loremCommand,
+                qrCommand,
+                timestampCommand,
+                hashCommand,
+                jwtCommand,
+                jsonCommand,
+                upgradeCommand,
+                completionCommand,
+            )
+
+    jackCommand.main(args)
 }

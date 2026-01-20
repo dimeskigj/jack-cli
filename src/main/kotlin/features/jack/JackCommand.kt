@@ -10,8 +10,11 @@ const val VERSION_OPTION_SHORT = "-v"
 const val VERSION_PROPERTIES_PATH = "/version.properties"
 const val VERSION_PROPERTY_KEY = "version"
 const val UNKNOWN_VERSION = "unknown"
+const val COMPLETION_ENV_VAR = "_JACK_COMPLETE"
 
 class JackCommand : CliktCommand(name = JACK_COMMAND_NAME) {
+    override val autoCompleteEnvvar: String = COMPLETION_ENV_VAR
+
     init {
         versionOption(getVersion(), names = setOf(VERSION_OPTION_LONG, VERSION_OPTION_SHORT))
     }
