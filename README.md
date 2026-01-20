@@ -12,6 +12,8 @@
   <img src="https://img.shields.io/badge/Language-Kotlin-purple?logo=kotlin" alt="Kotlin">
   <img src="https://img.shields.io/badge/License-MIT-blueviolet" alt="MIT License">
   <img src="https://img.shields.io/badge/PRs-Welcome-mediumpurple" alt="PRs Welcome">
+  <img src="https://github.com/dimeskigj/jack-cli/actions/workflows/validation.yml/badge.svg" alt="Validation workflow status">
+  <img src="https://github.com/dimeskigj/jack-cli/actions/workflows/release.yml/badge.svg" alt="Release workflow status">
 </p>
 
 ## Usage
