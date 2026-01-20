@@ -22,23 +22,27 @@ class UpgradeServiceImpl : UpgradeService {
             ?.trim()
             ?: UNKNOWN_VERSION
 
-    override fun getLatestVersion(): String =
-        try {
-            val connection = URI(GITHUB_RELEASES_API_URL).toURL().openConnection() as HttpURLConnection
+    override fun getLatestVersion(): String {
+        var connection: HttpURLConnection? = null
+        return try {
+            connection = URI(GITHUB_RELEASES_API_URL).toURL().openConnection() as HttpURLConnection
             connection.requestMethod = "GET"
             connection.setRequestProperty("Accept", GITHUB_ACCEPT_HEADER)
             connection.connectTimeout = HTTP_TIMEOUT_MS
             connection.readTimeout = HTTP_TIMEOUT_MS
 
             if (connection.responseCode == HttpURLConnection.HTTP_OK) {
-                val response = connection.inputStream.bufferedReader().readText()
+                val response = connection.inputStream.bufferedReader().use { it.readText() }
                 parseTagName(response)
             } else {
                 UNKNOWN_VERSION
             }
         } catch (e: Exception) {
             FETCH_FAILED_VERSION
+        } finally {
+            connection?.disconnect()
         }
+    }
 
     private fun parseTagName(json: String): String {
         val regex = """"tag_name"\s*:\s*"([^"]+)"""".toRegex()
