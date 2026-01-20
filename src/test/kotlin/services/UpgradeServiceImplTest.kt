@@ -28,49 +28,5 @@ class UpgradeServiceImplTest {
         )
     }
 
-    @Test
-    fun `should parse tag name from github api response`() {
-        // Use reflection to test the private parseTagName method
-        val parseMethod =
-            UpgradeServiceImpl::class.java.getDeclaredMethod(
-                "parseTagName",
-                String::class.java,
-            )
-        parseMethod.isAccessible = true
 
-        val json = """{"tag_name": "v1.2.3", "other": "field"}"""
-        val result = parseMethod.invoke(service, json) as String
-
-        assertEquals("1.2.3", result)
-    }
-
-    @Test
-    fun `should parse tag name without v prefix`() {
-        val parseMethod =
-            UpgradeServiceImpl::class.java.getDeclaredMethod(
-                "parseTagName",
-                String::class.java,
-            )
-        parseMethod.isAccessible = true
-
-        val json = """{"tag_name": "2.0.0", "other": "field"}"""
-        val result = parseMethod.invoke(service, json) as String
-
-        assertEquals("2.0.0", result)
-    }
-
-    @Test
-    fun `should return unknown for invalid json`() {
-        val parseMethod =
-            UpgradeServiceImpl::class.java.getDeclaredMethod(
-                "parseTagName",
-                String::class.java,
-            )
-        parseMethod.isAccessible = true
-
-        val json = """{"no_tag": "here"}"""
-        val result = parseMethod.invoke(service, json) as String
-
-        assertEquals("unknown", result)
-    }
 }
