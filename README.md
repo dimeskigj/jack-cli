@@ -67,11 +67,27 @@ jack jwt "your.jwt.token" --secret "your-secret"
 ```
 
 ### JSON Formatting
-Verify and pretty print JSON input.
+Process, query, and format JSON input.
 ```bash
 jack json '{"name":"jack","version":1}'
 jack json --file data.json --indent 2
 cat data.json | jack json
+```
+
+#### Query JSON
+Extract values using dot-notation and array indices.
+```bash
+jack json -q ".name" '{"name":"jack"}'
+jack json -q ".user.id" '{"user":{"id":123}}'
+jack json -q ".items[0]" '{"items":["a","b","c"]}'
+jack json -q ".users[1].name" '{"users":[{"name":"alice"},{"name":"bob"}]}'
+```
+
+#### Compact Output
+Output minified JSON on a single line.
+```bash
+jack json --compact '{"name": "jack", "version": 1}'
+jack json -c -q ".data" '{"data":{"a":1,"b":2}}'
 ```
 
 ## Installation
@@ -117,7 +133,7 @@ Download the latest archive from the [releases page](https://github.com/dimeskig
 - **Hashing**: MD5, SHA1, SHA256, SHA512 support.
 - **Timestamps**: Seconds or milliseconds.
 - **JWT Decoding**: Pretty print header and payload with signature verification.
-- **JSON Formatting**: Verify and pretty print JSON with custom indentation.
+- **JSON Processing**: Query, format, and minify JSON with dot-notation queries.
 
 ## License
 MIT
