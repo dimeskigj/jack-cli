@@ -139,3 +139,12 @@ Download the latest archive from the [releases page](https://github.com/dimeskig
 
 ## License
 MIT
+
+
+## Contributors
+
+A big thank you to everyone who contributes!
+
+<a href="https://github.com/dimeskigj/jack-cli/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=dimeskigj/jack-cli" />
+</a>
