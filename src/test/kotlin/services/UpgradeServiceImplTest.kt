@@ -2,7 +2,6 @@ package services
 
 import org.jack.features.upgrade.services.impl.UpgradeServiceImpl
 import org.junit.jupiter.api.Test
-import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
 import kotlin.test.assertTrue
 
@@ -27,6 +26,4 @@ class UpgradeServiceImplTest {
                 version.contains("unknown"),
         )
     }
-
-
 }
