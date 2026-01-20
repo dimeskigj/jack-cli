@@ -43,15 +43,26 @@ Type "clear"
 Enter
 Show
 
-Type "# Format JSON from clipboard or stdin"
+Type "# Query, format, and minify JSON from APIs"
 Sleep 500ms
 Enter
-Type "echo '"
-Type@1ms '{"name":"jack","version":"1.0.0","tools":["uuid","lorem","qr","jwt","hash","timestamp","json"]}'
-Type "' | jack json"
+Type "curl -s https://dogapi.dog/api/v2/breeds | jack json -q '.data[].attributes.name'"
 Sleep 500ms
 Enter
-Sleep 3s
+Sleep 2s
+
+Hide
+Type "clear"
+Enter
+Show
+
+Type "# Get nested objects from APIs"
+Sleep 500ms
+Enter
+Type "curl -s https://dogapi.dog/api/v2/breeds | jack json -q '.data[0].attributes.life'"
+Sleep 500ms
+Enter
+Sleep 2s
 
 Hide
 Type "clear"
