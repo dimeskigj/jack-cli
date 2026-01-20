@@ -57,12 +57,14 @@ class JsonCommand(
                 return
             }
 
-            var element = jsonService.parse(jsonText)
+            val parsedElement = jsonService.parse(jsonText)
 
-            val queryExpr = query
-            if (queryExpr != null) {
-                element = jsonService.query(element, queryExpr)
-            }
+            val element =
+                if (query != null) {
+                    jsonService.query(parsedElement, query!!)
+                } else {
+                    parsedElement
+                }
 
             val result =
                 if (compact) {
