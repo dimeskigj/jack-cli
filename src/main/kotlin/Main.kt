@@ -15,6 +15,8 @@ import org.jack.features.qr.QrCommand
 import org.jack.features.qr.services.impl.QrCodeWriterServiceImpl
 import org.jack.features.timestamp.TimestampCommand
 import org.jack.features.timestamp.services.impl.TimestampServiceImpl
+import org.jack.features.upgrade.UpgradeCommand
+import org.jack.features.upgrade.services.impl.UpgradeServiceImpl
 import org.jack.features.uuid.UuidCommand
 import org.jack.features.uuid.services.impl.UuidServiceImpl
 import org.jack.features.uuid.subcommands.GenerateCommand
@@ -28,6 +30,7 @@ fun main(args: Array<String>) {
     val hashService = HashServiceImpl()
     val jwtService = JwtServiceImpl()
     val jsonService = JsonServiceImpl()
+    val upgradeService = UpgradeServiceImpl()
 
     val uuidCommand =
         UuidCommand().subcommands(
@@ -41,6 +44,7 @@ fun main(args: Array<String>) {
     val hashCommand = HashCommand(hashService)
     val jwtCommand = JwtCommand(jwtService)
     val jsonCommand = JsonCommand(jsonService)
+    val upgradeCommand = UpgradeCommand(upgradeService)
 
     JackCommand()
         .subcommands(
@@ -51,5 +55,6 @@ fun main(args: Array<String>) {
             hashCommand,
             jwtCommand,
             jsonCommand,
+            upgradeCommand,
         ).main(args)
 }
