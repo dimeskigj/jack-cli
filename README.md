@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/img/cover.gif" width="800">
+  <img src="docs/img/cover.gif" width="1400">
 </p>
 
 # <p align="center">JACK</p>
@@ -15,6 +15,44 @@
   <img src="https://github.com/dimeskigj/jack-cli/actions/workflows/validation.yml/badge.svg" alt="Validation workflow status">
   <img src="https://github.com/dimeskigj/jack-cli/actions/workflows/release.yml/badge.svg" alt="Release workflow status">
 </p>
+
+
+## Installation
+
+### Quick Install (Recommended)
+
+**Linux / macOS:**
+```bash
+curl -fsSL https://raw.githubusercontent.com/dimeskigj/jack-cli/main/scripts/install.sh | bash
+```
+
+**Windows (PowerShell):**
+```powershell
+iwr https://raw.githubusercontent.com/dimeskigj/jack-cli/main/scripts/install.ps1 -useb | iex
+```
+
+### From Source
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/dimeskigj/jack-cli.git
+   cd jack-cli
+   ```
+2. Build and install:
+   ```bash
+   ./gradlew installDist
+   ```
+3. Add the binary to your `PATH`. The binary is located at `build/install/jack/bin`.
+
+### Native Image
+To build a standalone executable that doesn't require Java installed:
+```bash
+./gradlew nativeCompile
+```
+The executable will be located in `build/native/nativeCompile`.
+
+### From Releases
+Download the latest archive from the [releases page](https://github.com/dimeskigj/jack-cli/releases), extract it, and add the `bin` folder to your `PATH`.
+
 
 ## Usage
 
@@ -92,41 +130,28 @@ jack json --compact '{"name": "jack", "version": 1}'
 jack json -c -q ".data" '{"data":{"a":1,"b":2}}'
 ```
 
-## Installation
-
-### Quick Install (Recommended)
-
-**Linux / macOS:**
+### Shell Completion
+Enable tab completion for jack commands in your shell.
 ```bash
-curl -fsSL https://raw.githubusercontent.com/dimeskigj/jack-cli/main/scripts/install.sh | bash
+jack completion
 ```
 
-**Windows (PowerShell):**
-```powershell
-iwr https://raw.githubusercontent.com/dimeskigj/jack-cli/main/scripts/install.ps1 -useb | iex
-```
-
-### From Source
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/dimeskigj/jack-cli.git
-   cd jack-cli
-   ```
-2. Build and install:
-   ```bash
-   ./gradlew installDist
-   ```
-3. Add the binary to your `PATH`. The binary is located at `build/install/jack/bin`.
-
-### Native Image
-To build a standalone executable that doesn't require Java installed:
+**Bash:**
 ```bash
-./gradlew nativeCompile
+echo 'eval "$(_JACK_COMPLETE=bash jack)"' >> ~/.bashrc
+source ~/.bashrc
 ```
-The executable will be located in `build/native/nativeCompile`.
 
-### From Releases
-Download the latest archive from the [releases page](https://github.com/dimeskigj/jack-cli/releases), extract it, and add the `bin` folder to your `PATH`.
+**Zsh:**
+```bash
+echo 'eval "$(_JACK_COMPLETE=zsh jack)"' >> ~/.zshrc
+source ~/.zshrc
+```
+
+**Fish:**
+```bash
+_JACK_COMPLETE=fish jack > ~/.config/fish/completions/jack.fish
+```
 
 ## Features
 - **UUID/ULID**: Validation and bulk generation of unique identifiers.
