@@ -28,16 +28,20 @@ class UpgradeServiceImpl : UpgradeService {
             connection = URI(GITHUB_RELEASES_API_URL).toURL().openConnection() as HttpURLConnection
             connection.requestMethod = "GET"
             connection.setRequestProperty("Accept", GITHUB_ACCEPT_HEADER)
+            connection.setRequestProperty("User-Agent", "jack-cli")
             connection.connectTimeout = HTTP_TIMEOUT_MS
             connection.readTimeout = HTTP_TIMEOUT_MS
 
-            if (connection.responseCode == HttpURLConnection.HTTP_OK) {
+            val responseCode = connection.responseCode
+            if (responseCode == HttpURLConnection.HTTP_OK) {
                 val response = connection.inputStream.bufferedReader().use { it.readText() }
                 parseTagName(response)
             } else {
-                UNKNOWN_VERSION
+                System.err.println("Failed to fetch latest version: HTTP $responseCode")
+                FETCH_FAILED_VERSION
             }
         } catch (e: Exception) {
+            System.err.println("Error fetching latest version: ${e.message}")
             FETCH_FAILED_VERSION
         } finally {
             connection?.disconnect()
