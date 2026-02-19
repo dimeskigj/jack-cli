@@ -23,6 +23,13 @@ const val UUID_VALUE_ARGUMENT_NAME = "value"
 const val UUID_VALUE_HELP = "The UUID/ULID value to validate"
 const val UUID_VALID_STATUS = "Status: Valid"
 const val UUID_INVALID_STATUS = "Status: Invalid"
+const val UUID_QUIET_NAME = "--quiet"
+const val UUID_QUIET_NAME_SHORT = "-q"
+const val UUID_QUIET_HELP = "Suppress output, exit code only"
+const val UUID_VERBOSE_NAME = "--verbose"
+const val UUID_VERBOSE_NAME_SHORT = "-v"
+const val UUID_VERBOSE_HELP = "Show details if valid"
+const val UUID_ERROR_NO_INPUT = "Error: No input provided"
 
 class UuidCommand : CliktCommand(name = UUID_COMMAND_NAME) {
     override fun help(context: Context) = UUID_HELP

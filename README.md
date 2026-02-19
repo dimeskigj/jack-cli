@@ -70,6 +70,7 @@ Validate a single UUID or ULID value using the `validate` subcommand.
 jack uuid validate <uuid>
 echo "3fa85f64-5717-4562-b3fc-2c963f66afa6" | jack uuid validate
 jack uuid validate --type ULID <ulid>
+jack uuid validate --quiet --verbose <uuid>
 ```
 
 ### Lorem Ipsum
@@ -93,10 +94,12 @@ jack hash --file path/to/file.txt --algorithm MD5
 ```
 
 ### Timestamps
-Get the current Unix timestamp.
+Get the current Unix timestamp, or parse/format values.
 ```bash
 jack timestamp
 jack timestamp --unit MILLISECONDS
+jack timestamp 2023-01-01
+jack timestamp 1672531200 --unit SECONDS --format ISO
 ```
 
 ### JWT Decoding
@@ -130,8 +133,39 @@ jack json --compact '{"name": "jack", "version": 1}'
 jack json -c -q ".data" '{"data":{"a":1,"b":2}}'
 ```
 
+### Base64
+Encode or decode text to/from Base64.
+```bash
+jack base64 encode "hello world"
+jack base64 decode "aGVsbG8gd29ybGQ="
+```
+
+### Networking
+Quick network utilities.
+```bash
+jack net ip
+jack net dns google.com
+```
+
+### Cron
+Work with cron expressions.
+```bash
+jack cron explain "*/5 * * * *"
+jack cron next "0 12 * * *"
+```
+
+### Maintenance
+Manage `jack` itself.
+```bash
+jack upgrade
+jack autocomplete
+```
+
 ### Shell Completion
+
 Enable tab completion for jack commands in your shell.
+  
+**Linux / macOS:**
 ```bash
 jack completion
 ```
@@ -158,9 +192,12 @@ _JACK_COMPLETE=fish jack > ~/.config/fish/completions/jack.fish
 - **Lorem Ipsum**: Customizable placeholder text.
 - **QR Codes**: PNG generation with custom colors.
 - **Hashing**: MD5, SHA1, SHA256, SHA512 support.
-- **Timestamps**: Seconds or milliseconds.
+- **Timestamps**: Seconds or milliseconds, parsing and formatting.
 - **JWT Decoding**: Pretty print header and payload with signature verification.
 - **JSON Processing**: Query, format, and minify JSON with dot-notation queries.
+- **Base64**: Encoding and decoding utilities.
+- **Networking**: IP lookup and DNS resolution.
+- **Cron**: Human readable descriptions and next execution calculation.
 
 ## License
 MIT
