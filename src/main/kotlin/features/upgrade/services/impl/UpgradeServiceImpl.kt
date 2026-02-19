@@ -48,7 +48,7 @@ class UpgradeServiceImpl : UpgradeService {
             if (response.statusCode() == 200) {
                 parseTagName(response.body())
             } else {
-                System.err.println("Failed to fetch latest version: HTTP $responseCode")
+                System.err.println("Failed to fetch latest version: HTTP ${response.statusCode()}")
                 FETCH_FAILED_VERSION
             }
         } catch (e: Exception) {
