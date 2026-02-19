@@ -1,18 +1,28 @@
 package org.jack.features.upgrade.services.impl
 
 import org.jack.features.upgrade.services.UpgradeService
-import java.net.HttpURLConnection
 import java.net.URI
+import java.net.http.HttpClient
+import java.net.http.HttpRequest
+import java.net.http.HttpResponse
+import java.time.Duration
 
 const val GITHUB_RELEASES_API_URL = "https://api.github.com/repos/dimeskigj/jack-cli/releases/latest"
 const val VERSION_PROPERTIES_FILE = "version.properties"
 const val VERSION_PREFIX = "version="
 const val UNKNOWN_VERSION = "unknown"
 const val FETCH_FAILED_VERSION = "unknown (failed to fetch)"
-const val HTTP_TIMEOUT_MS = 5000
+const val HTTP_TIMEOUT_SECONDS = 5L
 const val GITHUB_ACCEPT_HEADER = "application/vnd.github.v3+json"
 
 class UpgradeServiceImpl : UpgradeService {
+    private val httpClient: HttpClient by lazy {
+        HttpClient
+            .newBuilder()
+            .connectTimeout(Duration.ofSeconds(HTTP_TIMEOUT_SECONDS))
+            .build()
+    }
+
     override fun getCurrentVersion(): String =
         javaClass.classLoader
             .getResourceAsStream(VERSION_PROPERTIES_FILE)
@@ -22,31 +32,29 @@ class UpgradeServiceImpl : UpgradeService {
             ?.trim()
             ?: UNKNOWN_VERSION
 
-    override fun getLatestVersion(): String {
-        var connection: HttpURLConnection? = null
-        return try {
-            connection = URI(GITHUB_RELEASES_API_URL).toURL().openConnection() as HttpURLConnection
-            connection.requestMethod = "GET"
-            connection.setRequestProperty("Accept", GITHUB_ACCEPT_HEADER)
-            connection.setRequestProperty("User-Agent", "jack-cli")
-            connection.connectTimeout = HTTP_TIMEOUT_MS
-            connection.readTimeout = HTTP_TIMEOUT_MS
+    override fun getLatestVersion(): String =
+        try {
+            val request =
+                HttpRequest
+                    .newBuilder()
+                    .uri(URI.create(GITHUB_RELEASES_API_URL))
+                    .header("Accept", GITHUB_ACCEPT_HEADER)
+                    .timeout(Duration.ofSeconds(HTTP_TIMEOUT_SECONDS))
+                    .GET()
+                    .build()
 
-            val responseCode = connection.responseCode
-            if (responseCode == HttpURLConnection.HTTP_OK) {
-                val response = connection.inputStream.bufferedReader().use { it.readText() }
-                parseTagName(response)
+            val response = httpClient.send(request, HttpResponse.BodyHandlers.ofString())
+
+            if (response.statusCode() == 200) {
+                parseTagName(response.body())
             } else {
-                System.err.println("Failed to fetch latest version: HTTP $responseCode")
+                System.err.println("Failed to fetch latest version: HTTP ${response.statusCode()}")
                 FETCH_FAILED_VERSION
             }
         } catch (e: Exception) {
             System.err.println("Error fetching latest version: ${e.message}")
             FETCH_FAILED_VERSION
-        } finally {
-            connection?.disconnect()
         }
-    }
 
     private fun parseTagName(json: String): String {
         val regex = """"tag_name"\s*:\s*"([^"]+)"""".toRegex()

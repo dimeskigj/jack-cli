@@ -1,12 +1,13 @@
 package commands
 
 import com.github.ajalt.clikt.testing.test
+import io.mockk.confirmVerified
+import io.mockk.mockk
+import io.mockk.verify
 import org.jack.features.qr.QrCommand
 import org.jack.features.qr.services.QrCodeWriterService
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.io.TempDir
-import org.mockito.Mockito.mock
-import org.mockito.Mockito.verify
 import java.io.File
 import kotlin.test.assertEquals
 
@@ -14,7 +15,7 @@ class QrCommandTest {
     @TempDir
     lateinit var tempFile: File
 
-    private val mockQrCodeWriterService: QrCodeWriterService = mock()
+    private val mockQrCodeWriterService: QrCodeWriterService = mockk(relaxed = true)
 
     private val command = QrCommand(mockQrCodeWriterService)
 
@@ -46,12 +47,14 @@ class QrCommandTest {
         val outputFile = tempFile.resolve("qr.png")
         command.test(listOf("test", "--output", outputFile.absolutePath))
 
-        verify(mockQrCodeWriterService).writeQrCode(
-            content = "test",
-            outputFile = outputFile,
-            backgroundColorRgba = 0xFFFFFFFF.toInt(),
-            foregroundColorRgba = 0xFF000000.toInt(),
-        )
+        verify {
+            mockQrCodeWriterService.writeQrCode(
+                content = "test",
+                outputFile = outputFile,
+                backgroundColorRgba = 0xFFFFFFFF.toInt(),
+                foregroundColorRgba = 0xFF000000.toInt(),
+            )
+        }
     }
 
     @Test
@@ -59,12 +62,14 @@ class QrCommandTest {
         val outputFile = tempFile.resolve("qr.png")
         command.test(listOf("test", "--output", outputFile.absolutePath, "-b", "00FF00", "-f", "FF0000FF"))
 
-        verify(mockQrCodeWriterService).writeQrCode(
-            content = "test",
-            outputFile = outputFile,
-            backgroundColorRgba = 0xFF00FF00.toInt(),
-            foregroundColorRgba = 0xFF0000FF.toInt(),
-        )
+        verify {
+            mockQrCodeWriterService.writeQrCode(
+                content = "test",
+                outputFile = outputFile,
+                backgroundColorRgba = 0xFF00FF00.toInt(),
+                foregroundColorRgba = 0xFF0000FF.toInt(),
+            )
+        }
     }
 
     @Test
@@ -81,11 +86,14 @@ class QrCommandTest {
         val outputFile = tempFile.resolve("qr.png")
         command.test(listOf("test", "--output", outputFile.absolutePath))
 
-        verify(mockQrCodeWriterService).writeQrCode(
-            content = "test",
-            outputFile = outputFile,
-            backgroundColorRgba = 0xFFFFFFFF.toInt(),
-            foregroundColorRgba = 0xFF000000.toInt(),
-        )
+        verify {
+            mockQrCodeWriterService.writeQrCode(
+                content = "test",
+                outputFile = outputFile,
+                backgroundColorRgba = 0xFFFFFFFF.toInt(),
+                foregroundColorRgba = 0xFF000000.toInt(),
+            )
+        }
+        confirmVerified(mockQrCodeWriterService)
     }
 }
