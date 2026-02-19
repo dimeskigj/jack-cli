@@ -55,6 +55,7 @@ graalvmNative {
             imageName.set("jack")
             mainClass.set("org.jack.MainKt")
             fallback.set(false)
+            buildArgs.add("--enable-url-protocols=https")
         }
     }
     toolchainDetection.set(true)
